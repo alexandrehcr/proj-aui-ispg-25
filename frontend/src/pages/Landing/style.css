@@ -2,13 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
 
 body {
-    height: 100vh;
-    background-color: rgb(246, 253, 245);
+    background: #f6fdf5;
     overflow: hidden;
-    font-family: sans-serif;
 }
 
 .landing-Page {
@@ -17,15 +16,14 @@ body {
     height: 100vh;
 }
 
+/* Header */
 .landing-header {
-    background-color: #179AEB;
-    padding: 15px 0;
-    color: #ffffff;
-    width: 100%;
-    position: relative; 
+    background: #179AEB;
+    padding: 15px 50px;
+    color: #fff;
     display: flex;
     justify-content: center;
-    align-items: center;
+    position: relative;
 }
 
 .landing-header header {
@@ -35,74 +33,89 @@ body {
     align-items: center;
 }
 
-.landing-header h1 {
-    margin: 0;
-    font-size: 25px;
-    text-align: center;
-}
-
 .Auth {
     position: absolute;
     right: 50px;
-    display: flex;
-    align-items: center;
 }
 
 .login-button {
-    background-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.2);
     padding: 8px 16px;
     border-radius: 8px;
     text-decoration: none;
-    color: #ffffff;
+    color: #fff;
     font-weight: bold;
     transition: 0.3s;
 }
 
 .login-button:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.4);
 }
 
 .container {
-    display: flex;
     flex: 1;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 90px;
-    width: 100%;
     padding: 0 40px;
 }
 
 .conth2 {
-    max-width: 1000px;
-    margin: 0;
+    max-width: 600px;
 }
 
 .conth2 h2 {
     color: #348ABF;
-    font-size: 32px;
+    font-size: 38px; 
     margin-bottom: 20px;
-    line-height: 1.2;
     overflow: hidden; 
     white-space: nowrap; 
-    width: 0px;             
-    animation: escrever 4.5s steps(100, end) forwards;
+    width: 0;
+    border-right: 3px solid;
+    animation: escrever 3s steps(35) forwards, piscarCursor 0.7s step-end infinite;
 }
 
 .conth2 p {
     color: #444;
     font-size: 20px;
     line-height: 1.6;
+    margin-bottom: 30px;
 }
 
-@keyframes escrever {
-    from { width: 0; }
-    to { width: 100%; }
+.authbutton {
+    display: inline-block;
+    background: #348ABF;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 4px 15px rgba(52, 138, 191, 0.3);
+    transition: 0.3s;
+}
+
+.authbutton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(52, 138, 191, 0.5);
 }
 
 .contImage img {
     max-width: 450px;
     width: 100%;
-    height: auto;
-    display: block;
+    transition: transform 0.3s ease;
+}
+
+.contImage img:hover {
+    transform: scale(1.05);
+}
+
+@keyframes escrever {
+    to { width: 70%; }
+}
+
+@keyframes piscarCursor {
+    50% { border-color: transparent; }
 }
