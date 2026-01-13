@@ -44,14 +44,18 @@ function Auth() {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:5000/login", {
-                user: identifier,
-                email: identifier,
+                username: identifier,
                 password: pass
             });
             
             if (response.status === 200) {
+                console.log("Login bem sucedido:", response.data);
                 navigate("/Feed"); 
+            } else {
+                console.error("Credenciais inválidas");
+                alert("Credenciais inválidas");
             }
+
         } catch (err) {
             console.error(err);
             alert("Erro no login");
