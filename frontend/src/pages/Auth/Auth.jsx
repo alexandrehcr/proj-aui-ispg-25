@@ -35,8 +35,7 @@ function Auth() {
         }
     };
     // login
-    const [userName, setUsername] = useState("");
-    const [login, setLogin] = useState("");
+    const [identifier, setIdentifier] = useState("");
     const [pass, setPass] = useState("");
     const navigate = useNavigate();
 
@@ -44,8 +43,8 @@ function Auth() {
         e.preventDefault();
 
         const userdata = {
-            user: userName,
-            email: login,
+            user: identifier,
+            email: identifier,
             password: pass
         };
         
@@ -70,7 +69,6 @@ function Auth() {
         }
     };
 
-    
 
     return (
         <div className="auth-container">
@@ -81,7 +79,7 @@ function Auth() {
             <form className="auth-form" onSubmit={submitlogin}>
             <div className="form-group">
                 <label htmlFor="text">Email ou Username</label>
-                <input type="text" id="text" required onChange={(e) => setUsername(e.target.value) || setPass(e.target.value)} />
+                <input type="text" id="text" required onChange={(e) => setIdentifier(e.target.value)} />
             </div>
             <div className="form-group">
                 <label htmlFor="pass">Password</label>
