@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import "./style.css";
 import { useNavigate } from "react-router-dom"; 
+
 function Auth() {
     // register
     const [user, setUser] = useState("");
@@ -41,35 +42,22 @@ function Auth() {
 
     const submitlogin = async (e) => {
         e.preventDefault();
-
-        const userdata = {
-            user: identifier,
-            email: identifier,
-            password: pass
-        };
-        
-        console.log(userdata);
-        
         try {
-            const response = await axios.get("http://localhost:5000/login", userdata);
+            const response = await axios.post("http://localhost:5000/login", {
+                user: identifier,
+                email: identifier,
+                password: pass
+            });
             
-            console.log("Sucesso:", response.data);
-            alert("Login efetuado com sucesso!");
-
-            navigate("/feed");
-            console.log("erro ao entrar no dearme")
-
-            setUsername("");
-            setLogin("");
-            setPass("");
-
-        } catch (error) {
-            console.error("Erro no login:", error.response?.data || error.message);
-            alert("Erro ao fazer login: " + (error.response?.data?.message || "Servidor offline"));
+            if (response.status === 200) {
+                navigate("/Feed"); 
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Erro no login");
         }
     };
-
-
+    
     return (
         <div className="auth-container">
         <input type="checkbox" id="auth-toggle" className="auth-toggle" />

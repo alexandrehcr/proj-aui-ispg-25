@@ -12,7 +12,7 @@ function App() {
         
         {/* Rota de Autenticação - Recomendado usar minúsculas */}
         <Route path="/auth" element={<Auth />} />
-        <Route path="/feed" element={<Dearme />} />
+        <Route path="/Feed" element={<Dearme />} />
       </Routes>
     </BrowserRouter>
   );

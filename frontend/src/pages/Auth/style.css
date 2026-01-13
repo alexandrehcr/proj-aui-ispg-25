@@ -8,7 +8,9 @@
 }
 
 body {
-    background: #f0f7ff; /* Fundo azul clarinho */
+    background: linear-gradient(135deg, #f0f7ff 0%, #d9eaff 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
 }
 
 .auth-container {
@@ -17,6 +19,9 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(0, 102, 255, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(0, 102, 255, 0.05) 0px, transparent 50%);
 }
 
 .auth-toggle {
@@ -24,87 +29,117 @@ body {
 }
 
 .auth-card {
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 75, 150, 0.08);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 45px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 75, 150, 0.1);
     width: 100%;
-    max-width: 400px;
-    border: 1px solid #e1e9f4;
+    max-width: 440px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .form-title {
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     text-align: center;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 700;
-    color: #003366; 
+    color: #003366;
+    position: relative;
+}
+
+.form-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: #0066ff;
+    margin: 10px auto 0;
+    border-radius: 2px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .form-group label {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: #475569;
 }
 
 .form-group input {
-    padding: 12px 16px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
+    padding: 14px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
     font-size: 15px;
-    transition: all 0.2s ease;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
 }
 
 .form-group input:focus {
     outline: none;
     border-color: #0066ff; 
+    background-color: #ffffff;
     box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
 }
 
 .btn-primary {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     background-color: #0066ff;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 16px;
     margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
     background-color: #0052cc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 102, 255, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
 }
 
 .auth-footer {
-    margin-top: 25px;
+    margin-top: 30px;
     text-align: center;
-    font-size: 14px;
+    font-size: 15px;
     color: #64748b;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
 }
 
 .link-btn {
     color: #0066ff;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     text-decoration: none;
-    margin-left: 5px;
+    margin-left: 6px;
+    transition: color 0.2s ease;
 }
 
 .link-btn:hover {
-    text-decoration: underline;
+    color: #003366;
 }
 
-/* LÓGICA DE TROCA */
 .register-card {
     display: none; 
 }
