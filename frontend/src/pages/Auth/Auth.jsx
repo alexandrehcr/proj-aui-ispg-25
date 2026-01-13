@@ -67,7 +67,7 @@ function Auth() {
         <input type="checkbox" id="auth-toggle" className="auth-toggle" />
         <div className="auth-card login-card">
             <h2 className="form-title">Login</h2>
-            
+            {/* // login */}
             <form className="auth-form" onSubmit={submitlogin}>
             <div className="form-group">
                 <label htmlFor="loginField">Email ou Username</label>
@@ -91,28 +91,27 @@ function Auth() {
             <label htmlFor="auth-toggle" className="link-btn">Criar Conta</label>
             </p>
         </div>
-
+        {/* // register */}
         <div className="auth-card register-card">
             <h2 className="form-title">Criar Conta</h2>
+            
             <form className="auth-form" onSubmit={submitreg}>
                 <div className="form-group">
-                    <label htmlFor="user">Nome</label>
-                    <input name="username" type="text" id="text" onChange={(e) => setUser(e.target.value)} required />
+                    <label htmlFor="user">Nome de utilizador</label>
+                    <input name="username" type="text" id="text" maxlength="24" minlength="2" placeholder="Nome (entre 2 e 24 caracteres)" onChange={(e) => setUser(e.target.value)} required />
                     
                 </div>
-
-                <div className="form-group">
-                    <label htmlFor="regmail">Email</label>
-                    <input name="email" type="email"  id="reg-mail" onChange={(e) => setRegmail(e.target.value)} required />
+                    <div className="form-group">
+                        <label htmlFor="regmail">Email</label>
+                        <input name="email" type="email"  id="reg-mail" onChange={(e) => setRegmail(e.target.value)} required />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="regpass">Password</label>
+                    <input name="password" type="password" id="reg-pass" maxlength="64" minlength="8" placeholder="Password (entre 8 e 64 caracteres)" onChange={(e) => setRegPass(e.target.value)} required />
                 </div>
-
-                <div className="form-group">
-                    <label htmlFor="regpass">Password</label>
-                    <input name="password" type="password" id="reg-pass" onChange={(e) => setRegPass(e.target.value)} required />
-                </div>
-
                 <button type="submit" className="btn-primary">Criar Conta</button>
             </form>
+
             <p className="auth-footer">
             Já tens conta? <label htmlFor="auth-toggle" className="link-btn">Voltar ao Login</label>
             </p>
