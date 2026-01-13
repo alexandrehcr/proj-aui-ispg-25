@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import "./style.css";
-
+import { useNavigate } from "react-router-dom"; 
 function Auth() {
-
+    // register
     const [user, setUser] = useState("");
     const [regmail, setRegmail] = useState("");
     const [regPass, setRegPass] = useState("");
@@ -34,10 +34,11 @@ function Auth() {
             alert("Erro ao registar: " + (error.response?.data?.message || "Servidor offline"));
         }
     };
-
+    // login
     const [userName, setUsername] = useState("");
     const [login, setLogin] = useState("");
     const [pass, setPass] = useState("");
+    const navigate = useNavigate();
 
     const submitlogin = async (e) => {
         e.preventDefault();
@@ -56,6 +57,9 @@ function Auth() {
             console.log("Sucesso:", response.data);
             alert("Login efetuado com sucesso!");
 
+            navigate("/feed");
+            console.log("erro ao entrar no dearme")
+
             setUsername("");
             setLogin("");
             setPass("");
@@ -66,6 +70,7 @@ function Auth() {
         }
     };
 
+    
 
     return (
         <div className="auth-container">
