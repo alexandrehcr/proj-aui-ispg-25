@@ -78,8 +78,14 @@ function Auth() {
             
             <form className="auth-form" onSubmit={submitlogin}>
             <div className="form-group">
-                <label htmlFor="text">Email ou Username</label>
-                <input type="text" id="text" required onChange={(e) => setIdentifier(e.target.value)} />
+                <label htmlFor="loginField">Email ou Username</label>
+                <input 
+                    type="text" 
+                    id="loginField" 
+                    required 
+                    value={identifier}
+                    onChange={(e) => setIdentifier(e.target.value)} 
+                />
             </div>
             <div className="form-group">
                 <label htmlFor="pass">Password</label>
