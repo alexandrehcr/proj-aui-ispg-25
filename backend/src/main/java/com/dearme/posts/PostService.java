@@ -48,6 +48,6 @@ public class PostService {
     }
 
     public Post findPostById(Long id) throws EntityNotFoundException {
-        return postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post with id " + id + " not found"));
+        return postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("post_not_found"));
     }
 }

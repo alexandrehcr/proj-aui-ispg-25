@@ -61,6 +61,6 @@ public class UserService {
     }
     
     public UserAccount findUserAccountById(Long id) throws EntityNotFoundException {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found."));
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("user_not_found"));
     }
 }
