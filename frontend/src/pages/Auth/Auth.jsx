@@ -36,32 +36,49 @@ function Auth() {
         }
     };
     // login
-    const [identifier, setIdentifier] = useState("");
-    const [pass, setPass] = useState("");
+    // const [identifier, setIdentifier] = useState("");
+    // const [pass, setPass] = useState("");
+    // const navigate = useNavigate();
+
+    // const submitlogin = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const response = await axios.post("http://localhost:5000/login", {
+    //             username: identifier,
+    //             password: pass
+    //         });
+            
+    //         if (response.status === 200) {
+    //             console.log("Login bem sucedido:", response.data);
+    //             navigate("/Feed"); 
+    //         } else {
+    //             console.error("Credenciais inválidas");
+    //             alert("Credenciais inválidas");
+    //         }
+
+    //     } catch (err) {
+    //         console.error(err);
+    //         alert("Erro no login");
+    //     }
+    // };
+    
+    //login teste
+    const [identifier, setIdentifier] = useState("teste");
+    const [pass, setPass] = useState("123456");
     const navigate = useNavigate();
 
-    const submitlogin = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post("http://localhost:5000/login", {
-                username: identifier,
-                password: pass
-            });
-            
-            if (response.status === 200) {
-                console.log("Login bem sucedido:", response.data);
-                navigate("/Feed"); 
-            } else {
-                console.error("Credenciais inválidas");
-                alert("Credenciais inválidas");
-            }
+    const submitlogin = (e) => {
+    e.preventDefault();
 
-        } catch (err) {
-            console.error(err);
-            alert("Erro no login");
-        }
+    // usuário de teste
+    if (identifier === "teste" && pass === "123456") {
+        console.log("Login de teste OK");
+        navigate("/Feed");
+    } else {
+        alert("Credenciais inválidas");
+    }
     };
-    
+
     return (
         <div className="auth-container">
         <input type="checkbox" id="auth-toggle" className="auth-toggle" />

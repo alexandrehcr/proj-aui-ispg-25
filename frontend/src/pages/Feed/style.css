@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu", sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f0f7ff 0%, #d9eaff 100%) fixed;
+    min-height: 100vh;
+}
+
+.dear-header {
+    background: #179AEB;
+    padding: 5px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.dear-header header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-post button{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: none;
+    font-size: 14px;
+    font-weight: bolder;
+    color: #fff;
+    background: #179AEB;
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    transition: background 0.2s;
+}
+
+.create-post button:hover {
+    background-color: #147dbf;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* fundo escuro semi-transparente */
+    z-index: 1; /* atrás do modal */
+}
+.formPost {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.formPost h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-form input[type="text"],
+.modal-form textarea,
+.modal-form input[type="file"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.modal-form button,
+.formPost > button {
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-form button {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.modal-form button:hover {
+    background-color: #0056b3;
+}
+.formPost > button {
+    margin-top: 15px;
+    background-color: #ccc;
+}
+
+.formPost > button:hover {
+    background-color: #aaa;
+}
