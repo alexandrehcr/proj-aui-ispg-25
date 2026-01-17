@@ -26,7 +26,6 @@ public class Post {
     @Column(nullable = false)
     private LocalDateTime created;
     
-    @Column(nullable = false)
     private LocalDateTime modified;
 
     @ManyToOne(optional = false)
