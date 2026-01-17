@@ -17,7 +17,7 @@ function DearMe() {
         const coverB64 = FormData.get("coverB64");
 
         const postData = ({
-            titulo: tittle,
+            tittle: tittle,
             content: content,
             coverB64: coverB64
         });
@@ -59,7 +59,10 @@ function DearMe() {
                         <input name="coverB64" className="coverB64" type="file" />
                         <button type="submit">Publicar</button>
                     </form>
-                <button onClick={fecharModal}>X</button>
+                <div className="closeForm">
+                    <button onClick={fecharModal}>X</button>
+                </div>
+
             </div>
             </>
             )}
