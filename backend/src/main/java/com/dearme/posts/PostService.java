@@ -1,9 +1,8 @@
 package com.dearme.posts;
 
-import com.dearme.users.UserService;
 import com.dearme.dtos.PostDataDto;
+import com.dearme.users.UserService;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,8 +19,8 @@ public class PostService {
         this.userService = userService;
     }
 
-    public PostDto save(PostDataDto postData) {
-        var user = userService.findUserAccountById(postData.userId());
+    public PostDto save(Long userId, PostDataDto postData) {
+        var user = userService.findUserAccountById(userId);
         var newPost = PostMapper.toEntity(postData, user);
         var savedPost = postRepository.save(newPost);
         return PostMapper.toDto(savedPost);

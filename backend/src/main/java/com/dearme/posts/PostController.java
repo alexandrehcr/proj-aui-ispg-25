@@ -17,20 +17,20 @@ public class PostController {
         this.postService = postService;
     }
     
-    @GetMapping("/user/{id}") // todo: change after authentication
-    public ResponseEntity<List<PostDto>> getUserPosts(@PathVariable Long userId){
+    @GetMapping("/user/{id}") // todo: change method after authentication
+    public ResponseEntity<List<PostDto>> getUserPosts(@PathVariable("id") Long userId){
         var posts = postService.findPostsFromUser(userId);
         return ResponseEntity.ok().body(posts);
     }
     
-    @PostMapping("/user/{id}") // todo: change after auth
-    public ResponseEntity<PostDto> createPost(@PathVariable Long userId, @Valid @RequestBody PostDataDto postData){
-        var savedPost = postService.save(postData);
+    @PostMapping("/user/{id}") // todo: change method after auth
+    public ResponseEntity<PostDto> createPost(@PathVariable("id") Long userId, @Valid @RequestBody PostDataDto postData){
+        var savedPost = postService.save(userId, postData);
         return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<PostDto> updatePost(@PathVariable Long postId, @Valid @RequestBody PostDataDto postData){
+    public ResponseEntity<PostDto> updatePost(@PathVariable("id") Long postId, @Valid @RequestBody PostDataDto postData){
         var updatedPost = postService.updatePost(postId, postData);
         return new ResponseEntity<>(updatedPost, HttpStatus.OK);
     }

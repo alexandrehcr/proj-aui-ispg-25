@@ -22,6 +22,7 @@ public class UserService {
         UserAccount savedUserAcc;
         try {
             savedUserAcc = repository.save(newUserAcc);
+            return UserMapper.toUserAccountDto(savedUserAcc);
         } catch (DataIntegrityViolationException ex) {
             boolean isUsernameTaken = repository.existsByUsername(regDto.username());
             boolean isEmailTaken = repository.existsByEmail(regDto.email());
@@ -38,8 +39,6 @@ public class UserService {
             }
             throw new DataIntegrityViolationException(err_code);
         }
-        
-        return UserMapper.toUserAccountDto(savedUserAcc);
     }
     
     public UserAccountDto findUserById(Long id) {
@@ -52,6 +51,7 @@ public class UserService {
         userAcc.setUsername(updateDto.username());
         userAcc.setEmail(updateDto.email());
         userAcc.setPwdHash(encoder.encode(updateDto.password()));
+        repository.save(userAcc);
         return UserMapper.toUserAccountDto(userAcc);
     }
     
