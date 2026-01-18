@@ -1,4 +1,12 @@
-/* --- CONTAINER PRINCIPAL DO FEED --- */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu", sans-serif;
+}
+
 .feed {
     display: flex;
     flex-direction: column;
@@ -6,7 +14,6 @@
     padding: 20px;
 }
 
-/* --- CARD DO POST --- */
 .postCard {
     position: relative;
     display: flex;
@@ -15,7 +22,7 @@
     border: 1px solid #e1e8ed;
     border-radius: 16px;
     margin: 20px auto;
-    width: 90%;
+    width: 40%;
     max-width: 1000px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     overflow: visible; /* Importante para o menu não ser cortado */
@@ -24,20 +31,19 @@
 
 .post-image {
     width: 100%;
-    height: 400px;
-    overflow: hidden;
-    background-color: #f8f9fa;
+    height: 300px;
+    overflow: hidden; 
 }
 
 .post-image img {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
+    border-radius: 15px;
 }
 
-/* --- CONTEÚDO TEXTUAL --- */
 .post-content {
     padding: 24px;
     display: flex;
