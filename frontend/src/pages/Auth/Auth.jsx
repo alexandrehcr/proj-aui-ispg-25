@@ -70,7 +70,7 @@ function Auth() {
     const submitlogin = (e) => {
     e.preventDefault();
 
-    // usuário de teste
+    // utilizador de teste
     if (identifier === "teste" && pass === "123456") {
         console.log("Login de teste OK");
         navigate("/Feed");
