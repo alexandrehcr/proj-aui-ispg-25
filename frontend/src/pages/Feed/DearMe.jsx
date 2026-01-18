@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 // import axios from "axios";
 import moment from "moment";
+import Notificao from "./Notificacoes";
 import "moment/dist/locale/pt-br";
 import "./style.css";
 import "./createPost.css";
 import "./Post.css";
+import "./notificacao.css"
 
 export default function DearMe() {
+    const [msgNotificacao, setMsgNotificacao] = useState("");
     const [modalAberto, setModalAberto] = useState(false);
     const [posts, setPosts] = useState([]);
     const [postSendoEditado, setPostSendoEditado] = useState(null);
@@ -76,6 +79,7 @@ export default function DearMe() {
     //Teste de post
     async function handleSubmit(event) {
         event.preventDefault();
+
         const formData = new FormData(event.target);
         const imageFile = formData.get("coverB64");
 
@@ -107,8 +111,9 @@ export default function DearMe() {
                         coverB64: imageB64 || p.coverB64,
                         dataEdicao: Date.now()
                     } 
-                    : p
+                    : p  
                 ));
+                setMsgNotificacao("Publicação editada com sucesso!");
             } else {
             const novoPost = {
                 id: Date.now(),
@@ -117,6 +122,7 @@ export default function DearMe() {
                 coverB64: imageB64 
             };
             setPosts(prevPosts => [novoPost, ...prevPosts]);
+            setMsgNotificacao("Publicação criada com sucesso!");
         }
 
         fecharModal();
@@ -125,6 +131,7 @@ export default function DearMe() {
 
     const deletePost = (postId) => {
         setPosts(posts.filter(post => post.id !== postId));
+        setMsgNotificacao("Publicação eliminada com sucesso!");
     };
 
     const editPost = (postId) => {
@@ -149,83 +156,90 @@ export default function DearMe() {
         return <span>{tempo}</span>; 
     }
 
-    return (
-        <div className="DearME">
-            <div className="dear-header">
-                <header><h1>Dear Me</h1></header>
-            </div>
-            
-            <div className="create-post">
-                <button onClick={abrirModal}>Criar Publicação</button>
-            </div>
+return (
+    <div className="DearME">
+        <div className="dear-header">
+            <header><h1>Dear Me</h1></header>
+        </div>
+        
+        <div className="create-post">
+            <button onClick={abrirModal}>Criar Publicação</button>
+        </div>
 
-            {modalAberto && (
-                <>
-                    <div className="overlay" onClick={fecharModal}></div>
-                    <div className="formPost">
-                        <h2>{postSendoEditado ? "Editar Publicação" : "Criar Publicação"}</h2>
-                        <form className="modal-form" onSubmit={handleSubmit}>
-                            <input 
-                                name="tittle" 
-                                type="text" 
-                                placeholder="Título" 
-                                defaultValue={postSendoEditado ? postSendoEditado.tittle : ""} 
-                                required
-                            />                
-                            <textarea 
-                                name="content" 
-                                className="content" 
-                                placeholder="Escreva sua publicação..." 
-                                defaultValue={postSendoEditado ? postSendoEditado.content : ""} 
-                                required
-                            ></textarea>
-                            <input name="coverB64" className="coverB64" type="file" />
-                            <button type="submit">
-                                {postSendoEditado ? "Salvar Alterações" : "Publicar"}
-                            </button>
-                        </form>
-                        <div className="closeForm">
-                            <button onClick={fecharModal}>X</button>
+        {modalAberto && (
+            <>
+                <div className="overlay" onClick={fecharModal}></div>
+                <div className="formPost">
+                    <h2>{postSendoEditado ? "Editar Publicação" : "Criar Publicação"}</h2>
+                    <form className="modal-form" onSubmit={handleSubmit}>
+                        <input 
+                            name="tittle" 
+                            type="text" 
+                            placeholder="Título" 
+                            defaultValue={postSendoEditado ? postSendoEditado.tittle : ""} 
+                            required
+                        />                
+                        <textarea 
+                            name="content" 
+                            className="content" 
+                            placeholder="Escreva sua publicação..." 
+                            defaultValue={postSendoEditado ? postSendoEditado.content : ""} 
+                            required
+                        ></textarea>
+                        <input name="coverB64" className="coverB64" type="file" />
+                        <button type="submit">
+                            {postSendoEditado ? "Salvar Alterações" : "Publicar"}
+                        </button>
+                    </form>
+                    <div className="closeForm">
+                        <button onClick={fecharModal}>X</button>
+                    </div>
+                </div>
+            </>
+        )}
+
+        <div className="feed">
+            {posts.map((post) => (
+                <div className="postCard" key={post.id}>
+                    <div id="menu-wrap">
+                        <input type="checkbox" className="toggler" />
+                        <div className="dots"><div></div></div>
+                        <div className="menu">
+                            <ul>
+                                <li><button className="link" onClick={() => editPost(post.id)}>Editar</button></li>
+                                <li><button className="link-delete" onClick={() => deletePost(post.id)}>Eliminar</button></li>
+                            </ul>
                         </div>
                     </div>
-                </>
-            )}
 
-            <div className="feed">
-                {posts.map((post) => (
-                    <div className="postCard" key={post.id}>
-                        <div id="menu-wrap">
-                            <input type="checkbox" className="toggler" />
-                            <div className="dots"><div></div></div>
-                            <div className="menu">
-                                <ul>
-                                    <li><button className="link" onClick={() => editPost(post.id)}>Editar</button></li>
-                                    <li><button className="link-delete" onClick={() => deletePost(post.id)}>Eliminar</button></li>
-                                </ul>
-                            </div>
+                    {post.coverB64 && (
+                        <div className="post-image">
+                            <img src={post.coverB64} alt="Capa" />
                         </div>
+                    )}
 
-                        {post.coverB64 && (
-                            <div className="post-image">
-                                <img src={post.coverB64} alt="Capa" />
-                            </div>
-                        )}
-
-                        <div className="post-content">
-                            <h3>{post.tittle}</h3>
-                            <p>{post.content}</p>
-                            <div className="post-time">
-                                Publicado <TempoDinamico data={post.id} />
-                            </div>
-                            {post.dataEdicao && (
+                    <div className="post-content">
+                        <h3>{post.tittle}</h3>
+                        <p>{post.content}</p>
+                        <div className="post-time">
+                            Publicado <TempoDinamico data={post.id} />
+                        </div>
+                        {post.dataEdicao && (
                             <div className="post-time edited">
                                 Editado <TempoDinamico data={post.dataEdicao} />
                             </div>
                         )}
-                        </div>
                     </div>
-                ))}
-            </div>
-        </div>          
-    );
+                </div>
+            ))}
+        </div>
+
+        {msgNotificacao && (
+            <Notificao 
+                message={msgNotificacao} 
+                onClose={() => setMsgNotificacao("")} 
+            />
+        )}
+    </div>          
+)
 }
