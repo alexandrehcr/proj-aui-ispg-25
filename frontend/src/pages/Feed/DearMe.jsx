@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import axios from 'axios';
+// import axios from "axios";
 import moment from "moment";
 import "moment/dist/locale/pt-br";
 import "./style.css";
@@ -7,39 +7,74 @@ import "./createPost.css";
 import "./Post.css";
 
 export default function DearMe() {
-
     const [modalAberto, setModalAberto] = useState(false);
     const [posts, setPosts] = useState([]);
+    const [postSendoEditado, setPostSendoEditado] = useState(null);
 
     const abrirModal = () => setModalAberto(true);
-    const fecharModal = () => setModalAberto(false);
+    
+    const fecharModal = () => {
+        setModalAberto(false);
+        setPostSendoEditado(null);
+    };
 
-    // Código comentado para integração futura com backend
-    // async function createPost(event) {
+    //Post com backend
+    // async function handleSubmit(event) {
     //     event.preventDefault();
-        
     //     const formData = new FormData(event.target);
+    //     const imageFile = formData.get("coverB64");
+
+    //     const convertToBase64 = (file) => {
+    //         return new Promise((resolve, reject) => {
+    //             const reader = new FileReader();
+    //             reader.readAsDataURL(file);
+    //             reader.onload = () => resolve(reader.result);
+    //             reader.onerror = (error) => reject(error);
+    //         });
+    //     };
+
+    //     let imageB64 = "";
+    //     if (imageFile && imageFile.size > 0) {
+    //         try {
+    //             imageB64 = await convertToBase64(imageFile);
+    //         } catch (error) {
+    //             console.error("Erro ao converter imagem:", error);
+    //         }
+    //     }
+
     //     const postData = {
     //         tittle: formData.get("tittle"),
     //         content: formData.get("content"),
-    //         coverB64: formData.get("coverB64")
+    //         coverB64: imageB64 || (postSendoEditado ? postSendoEditado.coverB64 : "")
     //     };
-    //     try {
-    //         const response = await axios.post("http://localhost:5000/createpost", postData);
-            
-    //         const novoPostCriado = response.data; 
-    //         setPosts([novoPostCriado, ...posts]); 
 
-    //         alert("Publicação criada com sucesso!");
+    //     try {
+    //         if (postSendoEditado) {
+    //             // ROTA DE ATUALIZAÇÃO (PUT)
+    //             const response = await axios.put(`http://localhost:5000/editpost/${postSendoEditado.id}`, postData);
+                
+    //             setPosts(prevPosts => prevPosts.map(p => 
+    //                 p.id === postSendoEditado.id ? response.data : p
+    //             ));
+    //             alert("Publicação atualizada!");
+    //         } else {
+    //             // ROTA DE CRIAÇÃO (POST)
+    //             const response = await axios.post("http://localhost:5000/createpost", postData);
+                
+    //             setPosts(prevPosts => [response.data, ...prevPosts]);
+    //             alert("Publicação criada!");
+    //         }
+
     //         fecharModal();
+    //         event.target.reset();
     //     } catch (error) {
-    //         console.error("Erro ao criar publicação:", error);
-    //         alert("Erro ao criar publicação.");
+    //         console.error("Erro na requisição:", error);
+    //         alert("Erro ao salvar publicação.");
     //     }
     // }
 
-    // Simulação de criação de post sem backend
-    async function createPost(event) {
+    //Teste de post
+    async function handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
         const imageFile = formData.get("coverB64");
@@ -54,7 +89,6 @@ export default function DearMe() {
         };
 
         let imageB64 = "";
-
         if (imageFile && imageFile.size > 0) {
             try {
                 imageB64 = await convertToBase64(imageFile);
@@ -63,31 +97,52 @@ export default function DearMe() {
             }
         }
 
-        const novoPostSimulado = {
-            id: Date.now(),
-            tittle: formData.get("tittle"),
-            content: formData.get("content"),
-            coverB64: imageB64 
-        };
+            if (postSendoEditado) {
+                setPosts(prevPosts => prevPosts.map(p => 
+                    p.id === postSendoEditado.id 
+                    ? { 
+                        ...p, 
+                        tittle: formData.get("tittle"), 
+                        content: formData.get("content"),
+                        coverB64: imageB64 || p.coverB64,
+                        dataEdicao: Date.now()
+                    } 
+                    : p
+                ));
+            } else {
+            const novoPost = {
+                id: Date.now(),
+                tittle: formData.get("tittle"),
+                content: formData.get("content"),
+                coverB64: imageB64 
+            };
+            setPosts(prevPosts => [novoPost, ...prevPosts]);
+        }
 
-        console.log("Novo post simulado:", novoPostSimulado);
-
-        setPosts(prevPosts => [novoPostSimulado, ...prevPosts]); 
         fecharModal();
         event.target.reset();
     }
 
+    const deletePost = (postId) => {
+        setPosts(posts.filter(post => post.id !== postId));
+    };
+
+    const editPost = (postId) => {
+        const post = posts.find(p => p.id === postId);
+        if (post) {
+            setPostSendoEditado(post);
+            abrirModal();
+        }
+    };
+
     function TempoDinamico({ data }) {
-        
         moment.locale("pt-br");
         const [tempo, setTempo] = useState(moment(data).fromNow());
         
         useEffect(() => {
-            moment.locale("pt-br");
             const intervalo = setInterval(() => {
                 setTempo(moment(data).fromNow());
             }, 30000); 
-
             return () => clearInterval(intervalo);
         }, [data]);
 
@@ -97,9 +152,7 @@ export default function DearMe() {
     return (
         <div className="DearME">
             <div className="dear-header">
-                <header>
-                    <h1>Dear Me</h1>
-                </header>
+                <header><h1>Dear Me</h1></header>
             </div>
             
             <div className="create-post">
@@ -110,12 +163,26 @@ export default function DearMe() {
                 <>
                     <div className="overlay" onClick={fecharModal}></div>
                     <div className="formPost">
-                        <h2>Criar Publicacao</h2>
-                        <form className="modal-form" onSubmit={createPost}>
-                            <input name="tittle" type="text" placeholder="Título" required/>                
-                            <textarea name="content" className="content" placeholder="Escreva sua publicação..." required></textarea>
+                        <h2>{postSendoEditado ? "Editar Publicação" : "Criar Publicação"}</h2>
+                        <form className="modal-form" onSubmit={handleSubmit}>
+                            <input 
+                                name="tittle" 
+                                type="text" 
+                                placeholder="Título" 
+                                defaultValue={postSendoEditado ? postSendoEditado.tittle : ""} 
+                                required
+                            />                
+                            <textarea 
+                                name="content" 
+                                className="content" 
+                                placeholder="Escreva sua publicação..." 
+                                defaultValue={postSendoEditado ? postSendoEditado.content : ""} 
+                                required
+                            ></textarea>
                             <input name="coverB64" className="coverB64" type="file" />
-                            <button type="submit">Publicar</button>
+                            <button type="submit">
+                                {postSendoEditado ? "Salvar Alterações" : "Publicar"}
+                            </button>
                         </form>
                         <div className="closeForm">
                             <button onClick={fecharModal}>X</button>
@@ -125,23 +192,39 @@ export default function DearMe() {
             )}
 
             <div className="feed">
-            {posts.map((post) => (
-                <div className="postCard" key={post.id}>
-                {post.coverB64 && (
-                    <div className="post-image">
-                    <img src={post.coverB64} alt="Capa do post" />
-                    </div>
-                )}
+                {posts.map((post) => (
+                    <div className="postCard" key={post.id}>
+                        <div id="menu-wrap">
+                            <input type="checkbox" className="toggler" />
+                            <div className="dots"><div></div></div>
+                            <div className="menu">
+                                <ul>
+                                    <li><button className="link" onClick={() => editPost(post.id)}>Editar</button></li>
+                                    <li><button className="link-delete" onClick={() => deletePost(post.id)}>Eliminar</button></li>
+                                </ul>
+                            </div>
+                        </div>
 
-                <div className="post-content">
-                    <h3>{post.tittle}</h3>
-                    <p>{post.content}</p>
-                    <span className="post-time">
-                        Publicado{" "} <TempoDinamico data={post.id} />
-                    </span>
-                </div>
-                </div>
-            ))}
+                        {post.coverB64 && (
+                            <div className="post-image">
+                                <img src={post.coverB64} alt="Capa" />
+                            </div>
+                        )}
+
+                        <div className="post-content">
+                            <h3>{post.tittle}</h3>
+                            <p>{post.content}</p>
+                            <div className="post-time">
+                                Publicado <TempoDinamico data={post.id} />
+                            </div>
+                            {post.dataEdicao && (
+                            <div className="post-time edited">
+                                Editado <TempoDinamico data={post.dataEdicao} />
+                            </div>
+                        )}
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>          
     );

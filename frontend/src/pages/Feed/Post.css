@@ -1,4 +1,14 @@
+/* --- CONTAINER PRINCIPAL DO FEED --- */
+.feed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* --- CARD DO POST --- */
 .postCard {
+    position: relative;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
@@ -8,13 +18,8 @@
     width: 90%;
     max-width: 1000px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
+    overflow: visible; /* Importante para o menu não ser cortado */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.postCard:hover {
-    transform: scale(1.01);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.158);
 }
 
 .post-image {
@@ -32,9 +37,9 @@
     object-position: center;
 }
 
+/* --- CONTEÚDO TEXTUAL --- */
 .post-content {
     padding: 24px;
-    /* Adicionamos flex para empurrar o tempo para o fim se necessário */
     display: flex;
     flex-direction: column;
 }
@@ -55,8 +60,15 @@
     margin: 0;
 }
 
-.post-time {
+/* --- DATAS (METADADOS) --- */
+.post-metadata {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.post-time {
     font-size: 0.85rem;
     color: #8a96a3; 
     display: flex;
@@ -65,5 +77,112 @@
 }
 
 .post-time span {
-    margin-left: 5px;
+    margin-left: 5px; 
+}
+
+.post-time.edited {
+    font-size: 0.75rem;
+    color: #b0bac5;
+    font-style: italic;
+}
+
+#menu-wrap {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 20;
+}
+
+#menu-wrap .toggler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 22;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+}
+
+#menu-wrap .dots {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 21;
+    transition: all 0.2s ease;
+}
+
+#menu-wrap .dots > div {
+    position: relative;
+    width: 4px;
+    height: 4px;
+    background-color: #4D6584;
+    border-radius: 50%;
+}
+
+#menu-wrap .dots > div:before,
+#menu-wrap .dots > div:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    background-color: inherit;
+    border-radius: 50%;
+}
+#menu-wrap .dots > div:before { top: -8px; }
+#menu-wrap .dots > div:after { top: 8px; }
+
+#menu-wrap .menu {
+    position: absolute;
+    bottom: 40px; /* Aumentado levemente para não colar nos pontos */
+    right: 0;
+    width: 150px;
+    background: #ffffff;
+    box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); /* Efeito elástico */
+    transform: translateY(15px);
+    border: 1px solid #f0f2f5;
+    padding: 0; /* Padding zero para o hover preencher tudo */
+    overflow: hidden;
+}
+
+#menu-wrap .toggler:checked ~ .menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#menu-wrap .menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#menu-wrap .menu ul li button {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    color: #4D6584;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+#menu-wrap .menu ul li button:hover {
+    background-color: #f8f9fa;
+}
+
+.link-delete {
+    color: #ff4d4d !important;
 }
