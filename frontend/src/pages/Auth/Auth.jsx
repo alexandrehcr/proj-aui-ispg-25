@@ -23,7 +23,7 @@ function Auth() {
         console.log(userdata);
         
         try {
-            const response = await axios.post("http://localhost:5000/register", userdata);
+            const response = await axios.post("http://localhost:8080/users", userdata);
             
             console.log("Sucesso:", response.data);
             alert("Registo efetuado com sucesso!");
@@ -38,52 +38,52 @@ function Auth() {
         }
     };
     // login
-    // const [identifier, setIdentifier] = useState("");
-    // const [pass, setPass] = useState("");
-    // const navigate = useNavigate();
-
-    // const submitlogin = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         const response = await axios.post("http://localhost:5000/login", {
-    //             username: identifier,
-    //             password: pass
-    //         });
-            
-    //         if (response.status === 200) {
-    //             console.log("Login bem sucedido:", response.data);
-    //             setTimeout(() => {
-                // navigate('/Feed');
-                // }, 1000)
-    //         } else {
-    //             console.error("Credenciais inválidas");
-    //             setMsgNotificacao("Credenciais invalidas!");
-    //         }
-
-    //     } catch (err) {
-    //         console.error(err);
-    //         setMsgNotificacao("Erro no Login");
-    //     }
-    // };
-    
-    //login teste
-    const [identifier, setIdentifier] = useState("teste");
-    const [pass, setPass] = useState("123456");
+    const [identifier, setIdentifier] = useState("");
+    const [pass, setPass] = useState("");
     const navigate = useNavigate();
 
-    const submitlogin = (e) => {
-    e.preventDefault();
+    const submitlogin = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:5000/login", {
+                username: identifier,
+                password: pass
+            });
+            
+            if (response.status === 200) {
+                console.log("Login bem sucedido:", response.data);
+                setTimeout(() => {
+                    navigate('/Feed');
+                }, 1000);
+            } else {
+                console.error("Credenciais inválidas");
+                setMsgNotificacao("Credenciais invalidas!");
+            }
 
-    // utilizador de teste
-    if (identifier === "teste" && pass === "123456") {
-        console.log("Login de teste OK");
-        setMsgNotificacao("Login efetuado com sucesso");
-        setTimeout(() => {
-        navigate('/Feed');
-        }, 1000)
-    } else {
-        setMsgNotificacao("Credenciais invalidas!");
-    }};
+        } catch (err) {
+            console.error(err);
+            setMsgNotificacao("Erro no Login");
+        }
+    };
+    
+    // //login teste
+    // const [identifier, setIdentifier] = useState("teste");
+    // const [pass, setPass] = useState("123456");
+    // const navigate = useNavigate();
+
+    // const submitlogin = (e) => {
+    // e.preventDefault();
+
+    // // utilizador de teste
+    // if (identifier === "teste" && pass === "123456") {
+    //     console.log("Login de teste OK");
+    //     setMsgNotificacao("Login efetuado com sucesso");
+    //     setTimeout(() => {
+    //     navigate('/Feed');
+    //     }, 1000)
+    // } else {
+    //     setMsgNotificacao("Credenciais invalidas!");
+    // }};
 
     return (
         <div className="auth-container">
