@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import Notificao from "../Feed/Notificacoes";
 import "./style.css";
 import { useNavigate } from "react-router-dom"; 
 
 function Auth() {
+    const [msgNotificacao, setMsgNotificacao] = useState("");
     // register
     const [user, setUser] = useState("");
     const [regmail, setRegmail] = useState("");
@@ -50,15 +52,17 @@ function Auth() {
             
     //         if (response.status === 200) {
     //             console.log("Login bem sucedido:", response.data);
-    //             navigate("/Feed"); 
+    //             setTimeout(() => {
+                // navigate('/Feed');
+                // }, 1000)
     //         } else {
     //             console.error("Credenciais inválidas");
-    //             alert("Credenciais inválidas");
+    //             setMsgNotificacao("Credenciais invalidas!");
     //         }
 
     //     } catch (err) {
     //         console.error(err);
-    //         alert("Erro no login");
+    //         setMsgNotificacao("Erro no Login");
     //     }
     // };
     
@@ -70,14 +74,16 @@ function Auth() {
     const submitlogin = (e) => {
     e.preventDefault();
 
-    // usuário de teste
+    // utilizador de teste
     if (identifier === "teste" && pass === "123456") {
         console.log("Login de teste OK");
-        navigate("/Feed");
+        setMsgNotificacao("Login efetuado com sucesso");
+        setTimeout(() => {
+        navigate('/Feed');
+        }, 1000)
     } else {
-        alert("Credenciais inválidas");
-    }
-    };
+        setMsgNotificacao("Credenciais invalidas!");
+    }};
 
     return (
         <div className="auth-container">
@@ -133,7 +139,13 @@ function Auth() {
             Já tens conta? <label htmlFor="auth-toggle" className="link-btn">Voltar ao Login</label>
             </p>
         </div>
-        </div>
+        {msgNotificacao && (
+            <Notificao 
+                message={msgNotificacao} 
+                onClose={() => setMsgNotificacao("")} 
+            />
+        )}
+        </div>        
     );
 }
 
