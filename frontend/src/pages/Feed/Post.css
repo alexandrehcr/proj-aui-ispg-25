@@ -192,3 +192,44 @@
 .link-delete {
     color: #ff4d4d !important;
 }
+
+.no-posts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    margin: 40px auto;
+    width: 40%; 
+    max-width: 1000px;
+    background-color: #ffffff;
+    border: 2px dashed #e1e8ed; 
+    border-radius: 16px;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.no-posts-container p {
+    font-size: 1.1rem;
+    color: #4D6584; 
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.no-posts-container::before {
+    content: "📝";
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
