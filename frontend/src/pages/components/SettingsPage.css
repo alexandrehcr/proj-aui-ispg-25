@@ -1,0 +1,248 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+/* THEMES */
+
+/* LIGHT THEME */
+.settings-wrapper.theme-light {
+  background: #eef6ff;
+  color: #1f2937;
+}
+
+.settings-wrapper.theme-light input,
+.settings-wrapper.theme-light select {
+  background: #ffffff; 
+  color: #1f2937;
+  border: 1px solid #cfd8e6;
+}
+
+.settings-wrapper.theme-light button {
+  color: white;
+}
+
+.settings-wrapper.theme-light .btn-save {
+  background: #1e88e5;
+}
+.settings-wrapper.theme-light .btn-save:hover {
+  background: #1565c0;
+}
+
+.settings-wrapper.theme-light .btn-reset,
+.settings-wrapper.theme-light .btn-back {
+  background: #e2e8f0; 
+  color: #374151;
+}
+.settings-wrapper.theme-light .btn-reset:hover,
+.settings-wrapper.theme-light .btn-back:hover {
+  background: #cbd5e1;
+}
+
+/* DARK THEME */
+.settings-wrapper.theme-dark {
+  background: #111827;
+  color: #f9fafb;
+}
+
+.settings-wrapper.theme-dark input,
+.settings-wrapper.theme-dark select,
+.settings-wrapper.theme-dark button {
+  background: #1f2937;
+  color: #f9fafb;
+  border: 1px solid #374151;
+}
+
+/* GREY THEME */
+.settings-wrapper.theme-grey {
+  background: #6b7280;
+  color: #f9fafb;
+}
+
+.settings-wrapper.theme-grey input,
+.settings-wrapper.theme-grey select,
+.settings-wrapper.theme-grey button,
+.settings-wrapper.theme-grey .settings-toggle span,
+.settings-wrapper.theme-grey .settings-section h3 {
+  color: #f9fafb;
+}
+
+.settings-wrapper.theme-grey input,
+.settings-wrapper.theme-grey select {
+  background: #9ca3af;
+  border: 1px solid #4b5563;
+}
+
+.settings-wrapper.theme-grey button {
+  background: #4f5666;
+  color: #f9fafb;
+}
+
+.settings-wrapper.theme-grey .btn-authenticator {
+  background: #4f5666;
+  color: #f9fafb;
+}
+.settings-wrapper.theme-grey .btn-logout-all {
+  background: #ef4444;
+  color: #f9fafb;
+}
+.settings-wrapper.theme-grey .btn-authenticator:hover { background: #374151; }
+.settings-wrapper.theme-grey .btn-logout-all:hover { background: #dc2626; }
+
+/* HEADER */
+.settings-header {
+  height: 53px;
+  background: linear-gradient(90deg, #1e88e5, #42a5f5);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  font-size: 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* PAGE TITLE */
+.settings-page-title {
+  font-size: 18px;
+  text-align: center;
+  margin: 16px 0;
+}
+
+/* CONTAINER */
+.settings-container.full-screen {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px);
+  padding: 32px;
+  gap: 24px;
+}
+
+/* COLUMNS USING GRID TO ALIGN SECURITY BLOCK */
+.settings-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  position: relative;
+}
+
+/* LEFT AND RIGHT COLUMNS */
+.settings-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* SECTIONS */
+.settings-section {
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #e5ebf3;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 8px 20px rgba(30,136,229,0.05);
+}
+
+.settings-section h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e88e5;
+  text-align: center;
+}
+
+/* INPUTS */
+input,
+select {
+  height: 46px;
+  border-radius: 10px;
+  padding: 0 16px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #1e88e5;
+  box-shadow: 0 0 0 3px rgba(30,136,229,0.15);
+}
+
+/* TOGGLES */
+.settings-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.settings-toggle input {
+  width: 18px;
+  height: 18px;
+}
+
+/* BUTTONS */
+button {
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  border-radius: 12px;
+  padding: 0 16px;
+  height: 46px;
+}
+
+/* SECURITY BLOCK USING ABSOLUTE POSITION TO ALIGN */
+.settings-column.right-column {
+  position: relative;
+}
+
+.settings-security {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  top: 0;
+  margin-top: 27px; /* вирівняно по верху правої колонки */
+}
+
+/* Buttons inside security */
+.btn-authenticator,
+.btn-logout-all {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.btn-authenticator { background: #1e88e5; color:white; }
+.btn-authenticator:hover { background: #1565c0; }
+.btn-logout-all { background: #ef4444; color:white; }
+.btn-logout-all:hover { background: #dc2626; }
+
+/* FOOTER BUTTONS */
+.footer-buttons {
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-buttons button {
+  height: 56px;
+  min-width: 150px;
+  font-size: 16px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .settings-columns { grid-template-columns: 1fr; }
+  .settings-column.right-column .settings-security { position: static; flex-direction: column; gap: 4px; }
+  .footer-buttons { flex-direction: column; gap: 16px; }
+  .footer-buttons button { width: 100%; }
+}

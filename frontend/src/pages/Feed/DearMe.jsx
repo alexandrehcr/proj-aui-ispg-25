@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import axios from "axios";
 import moment from "moment";
 import Notificao from "./Notificacoes";
+import ProfileDropdown from "../components/ProfileDropdown"; 
 import "moment/dist/locale/pt-br";
 import "./style.css";
 import "./createPost.css";
@@ -154,7 +155,10 @@ export default function DearMe() {
     return (
         <div className="DearME">
             <div className="dear-header">
-                <header><h1>Dear Me</h1></header>
+                <header>
+                    <h1>Dear Me</h1>
+                    <ProfileDropdown />
+                </header>
             </div>
             
             <div className="create-post">

@@ -1,0 +1,223 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.profile-fullscreen {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.header {
+  height: 53px;
+  padding: 0px 30px;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #1e88e5, #42a5f5);
+  color: white;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 280px;
+  padding: 30px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: inherit;
+}
+
+/* AVATAR */
+.avatar-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 4px solid #1e88e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.avatar-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+/* FORM */
+form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field.full-width {
+  grid-column: span 3;
+}
+
+input, select, textarea {
+  height: 44px;
+  border-radius: 6px;
+  border: 1px solid #cfd4dc;
+  padding: 0 10px;
+  background: #fff;
+}
+
+textarea {
+  height: 120px;
+  padding-top: 10px;
+}
+
+/* PASSWORD GROUP */
+.password-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  grid-column: span 3;
+}
+
+/* CUSTOM SELECT */
+.custom-select {
+  position: relative;
+}
+
+.select-selected {
+  height: 44px;
+  border-radius: 6px;
+  border: 1px solid #cfd4dc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  cursor: pointer;
+  background-color: #ffffff; /* FIX */
+}
+
+.select-items {
+  position: absolute;
+  top: 48px;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #cfd4dc;
+  background-color: #ffffff; /* FIX */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  z-index: 1000; /* FIX LAYER */
+}
+
+.select-items div {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+}
+
+.select-items div:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+/* FOOTER */
+.footer-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 12px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-save {
+  background: #1e88e5;
+  color: white;
+  border: none;
+}
+
+.btn-back,
+.btn-reset {
+  background: #f3f4f6;
+  border: 1px solid #ccd1d8;
+}
+
+/* THEMES */
+.theme-dark {
+  background: #020617;
+  color: #e5e7eb;
+}
+
+.theme-dark input,
+.theme-dark textarea,
+.theme-dark select {
+  background: #0f172a;
+  color: #e5e7eb;
+  border-color: #334155;
+}
+
+.theme-dark .select-selected,
+.theme-dark .select-items {
+  background: #0f172a; /* FIX */
+  color: #e5e7eb;
+  border-color: #334155;
+}
+
+.theme-dark .sidebar {
+  background: #020617;
+}
+
+.theme-grey {
+  background: #374151;
+  color: white;
+}
+
+.theme-grey input,
+.theme-grey textarea,
+.theme-grey select {
+  background: #4b5563;
+  color: white;
+  border-color: #9ca3af;
+}
+
+.theme-grey .select-selected,
+.theme-grey .select-items {
+  background: #4b5563; /* FIX */
+  color: white;
+  border-color: #9ca3af;
+}
+
+.theme-grey .sidebar {
+  background: #374151;
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px) {
+  form, .password-group { grid-template-columns: 1fr; }
+  .footer-buttons { flex-direction: column; gap: 10px; }
+}
