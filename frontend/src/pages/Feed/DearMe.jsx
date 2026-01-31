@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 // import axios from "axios";
 import moment from "moment";
 import Notificao from "./Notificacoes";
-import ProfileDropdown from "../components/ProfileDropdown"; 
 import "moment/dist/locale/pt-br";
 import "./style.css";
 import "./createPost.css";
@@ -155,10 +154,7 @@ export default function DearMe() {
     return (
         <div className="DearME">
             <div className="dear-header">
-                <header>
-                    <h1>Dear Me</h1>
-                    <ProfileDropdown />
-                </header>
+                <header><h1>Dear Me</h1></header>
             </div>
             
             <div className="create-post">
@@ -205,7 +201,7 @@ export default function DearMe() {
                 ) : (
                     posts.map((post) => (
                         <div className="postCard" key={post.id}>
-                            <div id="menu-wrap">
+                           {/*  <div id="menu-wrap">
                                 <input type="checkbox" className="toggler" />
                                 <div className="dots"><div></div></div>
                                 <div className="menu">
@@ -214,17 +210,35 @@ export default function DearMe() {
                                         <li><button className="link-delete" onClick={() => deletePost(post.id)}>Eliminar</button></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
 
-                            {post.coverB64 && (
-                                <div className="post-image">
-                                    <img src={post.coverB64} alt="Capa" />
-                                </div>
-                            )}
+
 
                             <div className="post-content">
-                                <h3>{post.tittle}</h3>
+
+                                <div className="post-header">
+                                    <h3>{post.tittle}</h3>
+
+                                    <div id="menu-wrap">
+                                        <input type="checkbox" className="toggler" />
+                                        <div className="dots"><div></div></div>
+                                            <div className="menu">
+                                                <ul>
+                                                    <li><button className="link" onClick={() => editPost(post.id)}>Editar</button></li>
+                                                    <li><button className="link-delete" onClick={() => deletePost(post.id)}>Eliminar</button></li>
+                                                </ul>
+                                            </div>
+                                    </div>
+                                </div>
+
+                                {post.coverB64 && (
+                                    <div className="post-image">
+                                        <img src={post.coverB64} alt="Capa" />
+                                    </div>
+                                )}
+
                                 <p>{post.content}</p>
+
                                 <div className="post-time">
                                     Publicado <TempoDinamico data={post.id} />
                                 </div>

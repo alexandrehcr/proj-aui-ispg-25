@@ -51,7 +51,7 @@
 }
 
 .postCard h3 {
-    margin: 0 0 16px 0;
+    margin: 0;
     font-size: 1.2rem;
     color: #4D6584;
     font-weight: 600;
@@ -80,6 +80,7 @@
     display: flex;
     align-items: center;
     font-weight: 500;
+    justify-content: flex-end; 
 }
 
 .post-time span {
@@ -92,10 +93,15 @@
     font-style: italic;
 }
 
-#menu-wrap {
+/*#menu-wrap {
     position: absolute;
-    bottom: 20px;
+    bottom: 20px; 
     right: 20px;
+    z-index: 20;
+}*/
+
+#menu-wrap {
+    position: relative;
     z-index: 20;
 }
 
@@ -144,7 +150,7 @@
 
 #menu-wrap .menu {
     position: absolute;
-    bottom: 40px; /* Aumentado levemente para não colar nos pontos */
+    top: 40px; /* Aumentado levemente para não colar nos pontos */
     right: 0;
     width: 150px;
     background: #ffffff;
@@ -232,4 +238,12 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
 }
