@@ -18,7 +18,9 @@ body {
     color: #fff;
     display: flex;
     justify-content: center;
-    position: relative;
+    position: sticky;   /* 🔥 AQUI */
+    top: 0;             /* 🔥 AQUI */
+    z-index: 1000;      /* 🔥 AQUI */
 }
 
 .dear-header header {

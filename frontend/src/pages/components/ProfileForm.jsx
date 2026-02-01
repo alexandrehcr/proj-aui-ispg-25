@@ -168,6 +168,9 @@ export default function ProfileForm() {
     setPhone(countries[0].code + " ");
   };
 
+  const defaultAvatar =
+  "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg";
+
   return (
     <div className={`profile-fullscreen theme-${settings.theme}`}>
       {/* Header з дропдауном */}
@@ -181,13 +184,24 @@ export default function ProfileForm() {
           padding: "0 20px",
         }}
       >
-        <span>DearMe</span>
+        <span
+  style={{ cursor: "pointer", fontWeight: "bold" }}
+  onClick={() => navigate("/Feed")}
+>
+  DearMe
+</span>
         <ProfileDropdown /> {/* дропдаун зверху праворуч */}
       </div>
 
       <div className="main">
         <div className="sidebar">
-          <div className="avatar-circle">{avatar ? <img src={avatar} alt="" /> : "Avatar"}</div>
+          <div className="avatar-circle">
+  <img
+    src={avatar || defaultAvatar}
+    alt="Avatar"
+  />
+</div>
+
           <button onClick={() => fileInputRef.current.click()}>{t.changePhoto}</button>
           <input ref={fileInputRef} type="file" hidden accept="image/*" onChange={handleAvatarChange} />
           <div>{name} {surname}</div>

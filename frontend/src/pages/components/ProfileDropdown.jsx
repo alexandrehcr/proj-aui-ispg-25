@@ -10,14 +10,19 @@ export default function ProfileDropdown() {
   const navigate = useNavigate();
   const dropdownRef = useRef();
 
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("profileData"));
-    if (data) {
-      setAvatar(data.avatar || null);
-      setName(data.name || "");
-      setSurname(data.surname || "");
-    }
-  }, []);
+useEffect(() => {
+  const profileData = JSON.parse(localStorage.getItem("profileData"));
+  const username = localStorage.getItem("username");
+
+  if (profileData) {
+    setAvatar(profileData.avatar || null);
+    setName(profileData.name || "");
+    setSurname(profileData.surname || "");
+  } else if (username) {
+    setName(username);
+    setSurname("");
+  }
+}, []);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -55,7 +60,7 @@ export default function ProfileDropdown() {
     <div className="dropdown-container" ref={dropdownRef}>
       <button className="dropdown-btn" onClick={() => setOpen(!open)}>
         <img
-          src={avatar || "https://via.placeholder.com/30?text=User"}
+          src={avatar || "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"}
           alt="Avatar"
           className="dropdown-avatar"
         />

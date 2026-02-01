@@ -57,6 +57,7 @@ function Auth() {
     //         }
     //     };
 
+
         const submitlogin = async (e) => {
             e.preventDefault();
 
@@ -67,6 +68,8 @@ function Auth() {
 
                 
                 if (identifier === contaTeste.username && pass === contaTeste.password) {
+                    // Salva o username no localStorage
+                    localStorage.setItem("username", contaTeste.username);
                 setTimeout(() => {
                         navigate('/Feed');
                     }, 1000);

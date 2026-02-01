@@ -15,12 +15,36 @@ export default function DearMe() {
     const [posts, setPosts] = useState([]);
     const [postSendoEditado, setPostSendoEditado] = useState(null);
 
+const [modalExcluirAberto, setModalExcluirAberto] = useState(false);
+const [postParaExcluir, setPostParaExcluir] = useState(null);
+
+const username = localStorage.getItem("username");
+
+const profileData = JSON.parse(localStorage.getItem("profileData"));
+const userAvatar = profileData?.avatar || null;
+
     const abrirModal = () => setModalAberto(true);
     
     const fecharModal = () => {
         setModalAberto(false);
         setPostSendoEditado(null);
     };
+
+    const abrirModalExcluir = (postId) => {
+    setPostParaExcluir(postId);
+    setModalExcluirAberto(true);
+};
+
+const fecharModalExcluir = () => {
+    setPostParaExcluir(null);
+    setModalExcluirAberto(false);
+};
+
+const confirmarExclusao = () => {
+    setPosts(posts.filter(post => post.id !== postParaExcluir));
+    setMsgNotificacao("Publicação eliminada com sucesso!");
+    fecharModalExcluir();
+};
 
     // --- BLOCO BACKEND ---
     /*
@@ -115,7 +139,9 @@ export default function DearMe() {
                 id: Date.now(),
                 tittle: formData.get("tittle"),
                 content: formData.get("content"),
-                coverB64: imageB64 
+                coverB64: imageB64,
+                author: username,
+                authorAvatar: userAvatar
             };
             setPosts(prevPosts => [novoPost, ...prevPosts]);
             setMsgNotificacao("Publicação criada com sucesso!");
@@ -125,10 +151,11 @@ export default function DearMe() {
         event.target.reset();
     }
 
-    const deletePost = (postId) => {
+    /*const deletePost = (postId) => {
         setPosts(posts.filter(post => post.id !== postId));
         setMsgNotificacao("Publicação eliminada com sucesso!");
     };
+    */
 
     const editPost = (postId) => {
         const post = posts.find(p => p.id === postId);
@@ -205,7 +232,7 @@ export default function DearMe() {
                 ) : (
                     posts.map((post) => (
                         <div className="postCard" key={post.id}>
-                            <div id="menu-wrap">
+                           {/*  <div id="menu-wrap">
                                 <input type="checkbox" className="toggler" />
                                 <div className="dots"><div></div></div>
                                 <div className="menu">
@@ -214,17 +241,58 @@ export default function DearMe() {
                                         <li><button className="link-delete" onClick={() => deletePost(post.id)}>Eliminar</button></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
 
-                            {post.coverB64 && (
-                                <div className="post-image">
-                                    <img src={post.coverB64} alt="Capa" />
-                                </div>
-                            )}
 
-                            <div className="post-content">
-                                <h3>{post.tittle}</h3>
+
+<div className="post-content">
+
+    {/* AUTOR (nova linha, não flex com o título) */}
+<div className="post-author">
+    <img
+        src={
+            userAvatar ||
+            "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+        }
+        alt={post.author}
+    />
+    <span>{post.author}</span>
+</div>
+
+    {/* HEADER ORIGINAL — NÃO MEXE */}
+    <div className="post-header">
+        <h3>{post.tittle}</h3>
+
+        <div id="menu-wrap">
+            <input type="checkbox" className="toggler" />
+            <div className="dots"><div></div></div>
+            <div className="menu">
+                <ul>
+                    <li>
+                        <button className="link" onClick={() => editPost(post.id)}>
+                            Editar
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            className="link-delete"
+                            onClick={() => abrirModalExcluir(post.id)}
+                        >
+                            Eliminar
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+                                {post.coverB64 && (
+                                    <div className="post-image">
+                                        <img src={post.coverB64} alt="Capa" />
+                                    </div>
+                                )}
+
                                 <p>{post.content}</p>
+
                                 <div className="post-time">
                                     Publicado <TempoDinamico data={post.id} />
                                 </div>
@@ -245,6 +313,29 @@ export default function DearMe() {
                     onClose={() => setMsgNotificacao("")} 
                 />
             )}
+            {/* 🔴 MODAL DE CONFIRMAÇÃO DE EXCLUSÃO  */}
+{modalExcluirAberto && (
+    <>
+        <div className="overlay" onClick={fecharModalExcluir}></div>
+
+        <div className="confirm-modal">
+            <h3>Confirmar exclusão</h3>
+            <p>
+                Tem certeza que deseja excluir esta publicação?
+                Essa ação não pode ser desfeita.
+            </p>
+
+            <div className="confirm-actions">
+                <button className="btn-cancelar" onClick={fecharModalExcluir}>
+                    Cancelar
+                </button>
+                <button className="btn-excluir" onClick={confirmarExclusao}>
+                    Excluir
+                </button>
+            </div>
+        </div>
+    </>
+)}
         </div>          
     );
 }

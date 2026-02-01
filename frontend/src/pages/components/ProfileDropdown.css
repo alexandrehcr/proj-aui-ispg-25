@@ -9,6 +9,8 @@
 
 /* Кнопка з аватаркою та ім'ям */
 .dropdown-btn {
+ position: relative;   /* 🔴 REFERÊNCIA para o menu */
+
   display: flex;
   align-items: center;
   background-color: white;
@@ -43,12 +45,17 @@
 
 /* Меню */
 .dropdown-menu {
-  margin-top: 6px;
   background-color: white;
   border: 1px solid #cfd4dc;
-  border-radius: 12px;          /* округлі кути */
+  border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  min-width: 180px;
+
+width: 100%;
+
+  position: absolute;
+top: calc(100% + 4px);;  /* 🔴 aparece EM BAIXO do botão */
+  right: 0;
+
   overflow: hidden;
   animation: dropdownFade 0.15s ease-out;
 }
